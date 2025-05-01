@@ -4,8 +4,6 @@ import { Github, Linkedin } from "lucide-react";
 import { useState } from "react";
 
 export default function Footer() {
-  const [open, setOpen] = useState(false);
-
   return (
     <footer className="bg-white dark:bg-zinc-900 border-t border-zinc-200 dark:border-zinc-800 text-sm">
       <div className="max-w-6xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
