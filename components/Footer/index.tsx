@@ -1,7 +1,6 @@
 "use client";
 
 import { Github, Linkedin } from "lucide-react";
-import { useState } from "react";
 
 export default function Footer() {
   return (
