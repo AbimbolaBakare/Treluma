@@ -15,8 +15,10 @@ export async function getMoodboardImages(query: string) {
 
   const data = await res.json();
 
-  return (data.results || []).map((img: any) => ({
-    url: img.urls?.regular,
-    alt: img.alt_description || query,
-  }));
+  return (data.results || []).map(
+    (img: { urls: { regular: "string" }; alt_description: "string" }) => ({
+      url: img.urls?.regular,
+      alt: img.alt_description || query,
+    })
+  );
 }

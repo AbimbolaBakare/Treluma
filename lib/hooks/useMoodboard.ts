@@ -19,7 +19,7 @@ export function useMoodboard(city: string) {
         } else {
           setImages(data);
         }
-      } catch (err) {
+      } catch {
         setError("Network error. Please try again.");
       } finally {
         setLoading(false);

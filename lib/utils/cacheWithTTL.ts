@@ -3,7 +3,7 @@ type CacheEntry<T> = {
   expires: number;
 };
 
-const cache = new Map<string, CacheEntry<any>>();
+const cache = new Map<string, CacheEntry<unknown>>();
 
 export async function cacheWithTTL<T>(
   key: string,
@@ -14,7 +14,7 @@ export async function cacheWithTTL<T>(
   const cached = cache.get(key);
 
   if (cached && cached.expires > now) {
-    return cached.value;
+    return cached.value as T;
   }
 
   const result = await fetchFn();

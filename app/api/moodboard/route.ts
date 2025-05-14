@@ -10,7 +10,7 @@ export async function GET(req: Request) {
   try {
     const images = await getMoodboardImages(query);
     return NextResponse.json(images);
-  } catch (error: any) {
+  } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
     const status = message.includes("Unsplash") ? 502 : 500;
     return NextResponse.json({ error: message }, { status });

@@ -29,7 +29,7 @@ export function useCitySummary(city: string, travelType: string) {
         } else {
           setSummary(data);
         }
-      } catch (err) {
+      } catch {
         setError("Failed to load city summary details. Please try again.");
       } finally {
         setLoading(false);

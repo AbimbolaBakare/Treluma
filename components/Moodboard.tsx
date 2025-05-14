@@ -1,6 +1,7 @@
 "use client";
 
 import { MoodboardProps } from "@/lib/types";
+import Image from "next/image";
 
 export default function Moodboard({ images, loading, error }: MoodboardProps) {
   if (loading) {
@@ -18,13 +19,21 @@ export default function Moodboard({ images, loading, error }: MoodboardProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
       {images.map((img, i) => (
-        <img
+        <div
           key={i}
-          src={img.url}
-          alt={img.alt || `Moodboard image ${i + 1}`}
-          className="rounded shadow-md object-cover w-full h-48"
-          loading="lazy"
-        />
+          className="relative w-full h-48 rounded overflow-hidden shadow-md"
+        >
+          <Image
+            src={img.url}
+            alt={img.alt || `Moodboard image ${i + 1}`}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 33vw"
+            placeholder="empty"
+            priority={false}
+            loading="lazy"
+          />
+        </div>
       ))}
     </div>
   );
