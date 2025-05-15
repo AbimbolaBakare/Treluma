@@ -12,7 +12,7 @@ import Button from "@/components/ui/Button";
 export default function HomePage() {
   const router = useRouter();
   const [city, setCity] = useState("");
-  const [travelType, setTravelType] = useState("");
+  const [travelType, setTravelType] = useState("solo");
   const [error, setError] = useState("");
   const [isPending, startTransition] = useTransition();
 
