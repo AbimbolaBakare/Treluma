@@ -3,28 +3,22 @@
 import { useState, useCallback, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { MapPin, Users } from "lucide-react";
+import { Users } from "lucide-react";
 
-import TextInput from "@/components/ui/TextInput";
 import SelectInput from "@/components/ui/SelectInput";
 import Button from "@/components/ui/Button";
+import CityAutocomplete from "@/components/ui/CityAutocomplete";
 
 export default function HomePage() {
   const router = useRouter();
   const [city, setCity] = useState("");
   const [travelType, setTravelType] = useState("solo");
-  const [error, setError] = useState("");
   const [isPending, startTransition] = useTransition();
 
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      if (!city.trim()) {
-        setError("Please enter a city name.");
-        return;
-      }
 
-      setError("");
       startTransition(() => {
         router.push(
           `/result?city=${encodeURIComponent(city)}&travelType=${travelType}`
@@ -62,15 +56,13 @@ export default function HomePage() {
           transition={{ delay: 0.2, duration: 0.5 }}
           aria-describedby="form-description"
         >
-          <TextInput
-            id="city"
-            label="City"
-            placeholder="Enter city name..."
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            error={error}
-            icon={<MapPin className="w-4 h-4" />}
-          />
+          <div>
+            <CityAutocomplete
+              onSelect={(selectedCity) => {
+                setCity(selectedCity);
+              }}
+            />
+          </div>
 
           <SelectInput
             id="travelType"
@@ -87,7 +79,7 @@ export default function HomePage() {
           />
 
           <div className="pt-3">
-            <Button type="submit" isLoading={isPending}>
+            <Button type="submit" isLoading={isPending} disabled={!city.trim()}>
               Explore City
             </Button>
           </div>
