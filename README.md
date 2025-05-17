@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌆 Treluma
 
-## Getting Started
+[![Vercel](https://vercelbadge.vercel.app/api/abimbolabakare/treluma)](https://treluma.vercel.app)
 
-First, run the development server:
+Treluma helps travelers explore the emotional and cultural energy of cities around the world. Powered by OpenAI and Unsplash, it provides:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- 🎨 Vibe-based city summaries
+- 🌈 Color palettes matching each city's energy
+- 🖼️ Curated moodboards
+
+## ✨ Features
+
+- Intelligent autocomplete with Google Places API
+- Structured city summaries using OpenAI GPT-4o
+- Color palettes tied to energy (calm, vibrant, chaotic, etc.)
+- Real-time moodboards sourced from Unsplash
+- Fully responsive, theme-aware (light/dark mode)
+- Input caching and rate-limiting to reduce API costs
+
+---
+
+## 🧱 Tech Stack
+
+- **Framework**: Next.js 15+ App Router
+- **Language**: TypeScript
+- **AI**: OpenAI GPT-4o (structured responses via Zod)
+- **Autocomplete**: Google Maps Places Autocomplete API (via proxy)
+- **Images**: Unsplash API
+- **Styling**: Tailwind CSS
+- **Animation**: Framer Motion
+- **Icons**: Lucide
+
+---
+
+## 🔐 API Keys & Environment Variables
+
+Add a `.env.local` file with:
+
+```env
+OPENAI_API_KEY=your-openai-api-key
+UNSPLASH_ACCESS_KEY=your-unsplash-access-key
+GOOGLE_MAPS_API_KEY=your-google-maps-api-key
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ensure that:
+- Google Maps API key allows `Places API`, and has referrer/IP restrictions
+- Unsplash and OpenAI keys are active and within quota
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Running Locally
 
-## Learn More
+```bash
+npm install
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Runs on: `http://localhost:3000`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧠 Notable Engineering Decisions
 
-## Deploy on Vercel
+- **Autocomplete proxy**: Google Places is called from a custom proxy route to support server-side API keys and rate limiting.
+- **Abortable search**: Uses `AbortController` to cancel stale requests while typing
+- **Fetch suppression**: Uses `useRef` flag to prevent unnecessary API calls when selecting suggestions
+- **Structured OpenAI output**: Uses `zodTextFormat()` to validate GPT response and enforce shape
+- **In-memory caching**: `cacheWithTTL()` wraps fetches and reduces OpenAI token usage
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🧪 Future Improvements
+
+- 🌍 Auto-language translation support via OpenAI
+- 🧳 Export or share results as PDF/download
+- 🌤️ Integrate OpenWeatherMap for weather insights
+- ✈️ Use Skyscanner API to show flight options to the selected city
+- 🧠 AI-powered itinerary suggestions
+- 🗂️ Save and revisit previously searched cities using local storage
+- 🖼️ Pagination or infinite scroll for moodboard images
+- 💾 Replace in-memory caching with Redis or Vercel KV for persistence
+
+---
+
+## 💡 Inspiration
+
+Treluma is for travelers who want more than tourist checklists. It's about finding the **feel** of a city before you arrive.
+
+> “Don’t just go where it’s popular, go where it feels right.”
